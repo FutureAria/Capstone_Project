@@ -253,7 +253,6 @@ export default function App() {
                 </div>
               ))}
             </div>
-
             {/* 저장 앨범 */}
             <div>
               <div style={{fontSize:11,fontWeight:600,opacity:0.45,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0 8px",marginBottom:12}}>내 앨범</div>
