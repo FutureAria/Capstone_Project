@@ -1,0 +1,66 @@
+name: Deploy Oracle
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: oracle-production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - run: npm ci
+      - run: npm run lint -- --quiet
+      - run: VITE_PUBLIC_BASE_PATH=/music-curation/ VITE_API_BASE_URL=/music-curation npm run build
+
+      - name: Copy frontend into backend static resources
+        run: |
+          rm -rf backend/src/main/resources/static
+          mkdir -p backend/src/main/resources/static
+          cp -R dist/. backend/src/main/resources/static/
+
+      - run: mvn clean test package
+        working-directory: backend
+
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.ORACLE_SSH_PRIVATE_KEY }}" > ~/.ssh/oracle_key
+          chmod 600 ~/.ssh/oracle_key
+
+      - name: Upload JAR
+        run: |
+          rsync -az \
+            -e "ssh -i ~/.ssh/oracle_key -o StrictHostKeyChecking=no" \
+            backend/target/backend-0.0.1-SNAPSHOT.jar \
+            "${{ secrets.ORACLE_HOST }}:/tmp/music-curation-app.jar"
+
+      - name: Restart service
+        run: |
+          ssh -i ~/.ssh/oracle_key -o StrictHostKeyChecking=no "${{ secrets.ORACLE_HOST }}" '
+            set -euo pipefail
+            sudo mkdir -p /opt/music-curation
+            sudo cp /tmp/music-curation-app.jar /opt/music-curation/app.jar
+            sudo chown -R root:root /opt/music-curation
+            sudo systemctl restart music-curation
+            for i in $(seq 1 30); do
+              if curl -fsS http://127.0.0.1:8090/music-curation/api/health; then
+                exit 0
+              fi
+              sleep 1
+            done
+            sudo journalctl -u music-curation -n 80 --no-pager
+            exit 1
+          '

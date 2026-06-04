@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH:}
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: music-curation-backend
+  datasource:
+    url: ${DB_URL:jdbc:h2:file:./data/music-curation;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;AUTO_SERVER=TRUE}
+    driver-class-name: org.h2.Driver
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+  sql:
+    init:
+      mode: always
+
+music:
+  frontend-origin: ${FRONTEND_ORIGIN:http://localhost:5173}
+  youtube:
+    api-key: ${YOUTUBE_API_KEY:}
+    base-url: https://www.googleapis.com/youtube/v3
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-2.5-flash-lite}
+    base-url: https://generativelanguage.googleapis.com/v1beta
+  rate-limit:
+    window-seconds: ${RATE_LIMIT_WINDOW_SECONDS:60}
+    max-requests: ${RATE_LIMIT_MAX_REQUESTS:60}
+  firebase-auth:
+    enabled: ${FIREBASE_AUTH_ENABLED:false}
+    project-id: ${FIREBASE_PROJECT_ID:}
+    cert-cache-seconds: ${FIREBASE_CERT_CACHE_SECONDS:3600}
+
+logging:
+  file:
+    name: ${LOG_FILE:logs/music-curation.log}
+  logback:
+    rollingpolicy:
+      max-file-size: ${LOG_MAX_FILE_SIZE:10MB}
+      max-history: ${LOG_MAX_HISTORY:7}
+  level:
+    com.musiccuration.backend: INFO

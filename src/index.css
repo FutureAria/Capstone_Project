@@ -1,0 +1,14 @@
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #08081897;  /* ← 이 줄 추가 */
+}
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #080818;  /* ← 이미 있으면 확인 */
+  color: #fff;
+}

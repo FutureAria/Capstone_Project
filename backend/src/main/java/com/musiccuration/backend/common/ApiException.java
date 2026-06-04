@@ -1,0 +1,26 @@
+package com.musiccuration.backend.common;
+
+import org.springframework.http.HttpStatus;
+
+public class ApiException extends RuntimeException {
+    private final ErrorCode code;
+    private final HttpStatus status;
+
+    public ApiException(ErrorCode code, String message) {
+        this(code, message, code.defaultStatus());
+    }
+
+    public ApiException(ErrorCode code, String message, HttpStatus status) {
+        super(message);
+        this.code = code;
+        this.status = status;
+    }
+
+    public ErrorCode code() {
+        return code;
+    }
+
+    public HttpStatus status() {
+        return status;
+    }
+}
