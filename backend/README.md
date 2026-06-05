@@ -5,7 +5,7 @@ Spring Boot API proxy server for the Music Curation frontend.
 ## 역할
 
 - YouTube Data API 키를 프론트에서 숨김
-- Gemini API 키와 프롬프트를 백엔드에서 관리
+- Claude API 키와 프롬프트를 백엔드에서 관리
 - 검색/차트/videoId/AI 응답 캐싱
 - CORS, rate limit, 공통 에러 응답 제공
 
@@ -19,7 +19,7 @@ cp .env.example .env
 
 ```text
 YOUTUBE_API_KEY=...
-GEMINI_API_KEY=...
+ANTHROPIC_API_KEY=...
 FRONTEND_ORIGIN=http://localhost:5173
 SERVER_PORT=8080
 ```

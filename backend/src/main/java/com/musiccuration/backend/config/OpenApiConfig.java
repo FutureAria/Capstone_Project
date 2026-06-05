@@ -14,7 +14,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Music Curation API")
                         .version("v1")
-                        .description("Backend proxy API for YouTube and Gemini based music curation.")
+                        .description("Backend proxy API for YouTube and Claude based music curation.")
                         .license(new License().name("Portfolio project")));
     }
 }

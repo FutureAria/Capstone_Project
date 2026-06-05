@@ -15,7 +15,7 @@ export function apiErrorMessage(error, fallback = '요청 처리에 실패했습
   if (code === 'YOUTUBE_API_ERROR') {
     return 'YouTube 검색 서버가 잠시 불안정해요. 잠시 후 다시 시도해주세요.'
   }
-  if (code === 'GEMINI_API_ERROR' || code === 'AI_RESPONSE_PARSE_FAILED') {
+  if (code === 'CLAUDE_API_ERROR' || code === 'AI_RESPONSE_PARSE_FAILED') {
     return 'AI 추천 서버가 잠시 응답하지 않아요. 다시 시도해주세요.'
   }
   if (code === 'RATE_LIMIT_EXCEEDED') {

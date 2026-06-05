@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.musiccuration.backend.common.CacheService;
-import com.musiccuration.backend.config.GeminiProperties;
-import com.musiccuration.backend.external.gemini.GeminiApiClient;
-import com.musiccuration.backend.external.gemini.GeminiPromptFactory;
+import com.musiccuration.backend.config.ClaudeProperties;
+import com.musiccuration.backend.external.claude.ClaudeApiClient;
+import com.musiccuration.backend.external.claude.ClaudePromptFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestClient;
 
@@ -16,8 +16,8 @@ class RecommendationServiceTest {
     @Test
     void fillsFallbackSongsWhenAiReturnsEmptySongs() {
         RecommendationService service = new RecommendationService(
-                new EmptyJsonGeminiClient(),
-                new GeminiPromptFactory(),
+                new EmptyJsonClaudeClient(),
+                new ClaudePromptFactory(),
                 new CacheService()
         );
 
@@ -28,9 +28,9 @@ class RecommendationServiceTest {
         assertThat(response.emotions()).isNotEmpty();
     }
 
-    private static class EmptyJsonGeminiClient extends GeminiApiClient {
-        EmptyJsonGeminiClient() {
-            super(RestClient.create(), new GeminiProperties("", "gemini-test", "http://localhost"), new ObjectMapper());
+    private static class EmptyJsonClaudeClient extends ClaudeApiClient {
+        EmptyJsonClaudeClient() {
+            super(RestClient.create(), new ClaudeProperties("", "claude-test", "http://localhost", "2023-06-01", 1024), new ObjectMapper());
         }
 
         @Override

@@ -3,8 +3,8 @@ package com.musiccuration.backend.mix;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.musiccuration.backend.common.CacheService;
 import com.musiccuration.backend.common.SongResponse;
-import com.musiccuration.backend.external.gemini.GeminiApiClient;
-import com.musiccuration.backend.external.gemini.GeminiPromptFactory;
+import com.musiccuration.backend.external.claude.ClaudeApiClient;
+import com.musiccuration.backend.external.claude.ClaudePromptFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ import java.util.Objects;
 
 @Service
 public class MixService {
-    private final GeminiApiClient geminiApiClient;
-    private final GeminiPromptFactory promptFactory;
+    private final ClaudeApiClient claudeApiClient;
+    private final ClaudePromptFactory promptFactory;
     private final CacheService cacheService;
 
-    public MixService(GeminiApiClient geminiApiClient, GeminiPromptFactory promptFactory, CacheService cacheService) {
-        this.geminiApiClient = geminiApiClient;
+    public MixService(ClaudeApiClient claudeApiClient, ClaudePromptFactory promptFactory, CacheService cacheService) {
+        this.claudeApiClient = claudeApiClient;
         this.promptFactory = promptFactory;
         this.cacheService = cacheService;
     }
@@ -27,16 +27,16 @@ public class MixService {
         int limit = request.safeLimit();
         String key = "mix:%s:%s:%s:%d".formatted(request.likedSongs(), request.albumSongs(), request.recentEmotions(), limit);
         CacheService.CachedValue<List<SongResponse>> cached = cacheService.ai(key, () -> {
-            JsonNode json = geminiApiClient.generateJson(promptFactory.mixPrompt(request.likedSongs(), request.albumSongs(), request.recentEmotions(), limit));
+            JsonNode json = claudeApiClient.generateJson(promptFactory.mixPrompt(request.likedSongs(), request.albumSongs(), request.recentEmotions(), limit));
             return mapSongs(json, limit);
         });
-        return new MixResponse(cached.value(), "gemini", cached.cached());
+        return new MixResponse(cached.value(), "claude", cached.cached());
     }
 
     public SongResponse similar(SongResponse song) {
         String key = "similar:%s:%s".formatted(song.title(), song.artist()).toLowerCase();
         return cacheService.ai(key, () -> {
-            JsonNode json = geminiApiClient.generateJson(promptFactory.similarSongPrompt(song));
+            JsonNode json = claudeApiClient.generateJson(promptFactory.similarSongPrompt(song));
             return new SongResponse(
                     null,
                     json.path("title").asText(""),
@@ -66,10 +66,10 @@ public class MixService {
 
         String key = "mixes:%s:%s:%s".formatted(likedSongs, albumNames, recentEmotions);
         CacheService.CachedValue<JsonNode> cached = cacheService.ai(key, () -> {
-            JsonNode json = geminiApiClient.generateJson(promptFactory.themedMixesPrompt(likedSongs, albumNames, recentEmotions));
+            JsonNode json = claudeApiClient.generateJson(promptFactory.themedMixesPrompt(likedSongs, albumNames, recentEmotions));
             return json.path("mixes");
         });
-        return new ThemedMixResponse(cached.value(), "gemini", cached.cached());
+        return new ThemedMixResponse(cached.value(), "claude", cached.cached());
     }
 
     private List<SongResponse> mapSongs(JsonNode node, int limit) {

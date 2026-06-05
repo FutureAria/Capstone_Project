@@ -88,7 +88,7 @@ The service is deployed and health/static page work. External recommendation/sea
 
 ```env
 YOUTUBE_API_KEY=
-GEMINI_API_KEY=
+ANTHROPIC_API_KEY=
 ```
 
 Do not write real values into Git or Markdown. Add them only to:

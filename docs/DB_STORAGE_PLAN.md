@@ -56,7 +56,7 @@ Use two layers:
 | `created_at` | timestamp | indexed |
 | `emotion` | varchar | dominant emotion |
 | `song_count` | int | generated song count |
-| `provider` | varchar | `gemini` |
+| `provider` | varchar | `claude` |
 | `cached` | boolean | cache hit |
 
 ## Remaining Implementation Order

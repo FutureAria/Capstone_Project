@@ -235,7 +235,7 @@ export default function MainScreen({ emotion = 'default', onAnalyzeComplete, onE
         onAnalyzeComplete?.(inputText, detectedEmotion)
       }, 2200)
     } catch (e) {
-      console.error('Gemini API 오류:', e)
+      console.error('Claude API 오류:', e)
       setApiNotice(apiErrorMessage(e, '감정 분석에 실패했어요. 잠시 후 다시 시도해주세요.'))
       setLoadingType(null)
     }

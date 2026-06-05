@@ -4,7 +4,7 @@
 
 ### 구현 요약
 
-팀원이 제공한 React/Vite 프론트에 맞춰 Spring Boot 백엔드를 `backend/`에 추가했다. 핵심 목적은 브라우저에 노출되던 YouTube/Gemini API 키와 프롬프트 로직을 서버로 이동하는 것이다.
+팀원이 제공한 React/Vite 프론트에 맞춰 Spring Boot 백엔드를 `backend/`에 추가했다. 핵심 목적은 브라우저에 노출되던 YouTube/Claude API 키와 프롬프트 로직을 서버로 이동하는 것이다.
 
 ### 백엔드 구성
 
@@ -25,8 +25,8 @@
 | GET | `/api/chart` | YouTube 인기 음악 차트 |
 | GET | `/api/search` | YouTube 음악 검색 |
 | GET | `/api/video-id` | 재생용 videoId 조회 |
-| POST | `/api/emotion` | Gemini 감정 분석 |
-| POST | `/api/recommend` | Gemini 감정 기반 추천 |
+| POST | `/api/emotion` | Claude 감정 분석 |
+| POST | `/api/recommend` | Claude 감정 기반 추천 |
 | POST | `/api/mix` | 단일 맞춤 믹스 |
 | POST | `/api/mixes` | MixPage용 테마 믹스 4개 |
 | POST | `/api/taste/recommend` | 취향 기반 추천 |
@@ -44,7 +44,7 @@
 
 - 실제 API key는 문서나 git에 저장하지 않는다.
 - 프론트 `.env.example`에는 Firebase 공개 설정만 둔다.
-- YouTube/Gemini key는 `backend/.env` 또는 서버 환경변수에만 둔다.
+- YouTube/Claude key는 `backend/.env` 또는 서버 환경변수에만 둔다.
 
 ### 후속 보강
 
@@ -68,7 +68,7 @@
 - 운영 health는 `https://juyoung-basechain.duckdns.org/music-curation/api/health`이다.
 - Docker를 쓰지 않아 서버 용량 사용을 줄였다.
 - 서버 배포 용량은 `/opt/music-curation` 기준 약 `31M`이다.
-- 실제 YouTube/Gemini 운영 키는 아직 문서/코드에 저장하지 않았고, 서버의 `/etc/music-curation/music-curation.env`에 직접 입력해야 한다.
+- 실제 YouTube/Claude 운영 키는 아직 문서/코드에 저장하지 않았고, 서버의 `/etc/music-curation/music-curation.env`에 직접 입력해야 한다.
 
 ### Analytics 저장
 
@@ -85,7 +85,7 @@
 - YouTube iframe/player와 Google Font 호출은 API key를 쓰는 백엔드 비밀 호출이 아니라 브라우저 렌더링/재생을 위한 외부 리소스다.
 - API 실패 시 콘솔에만 남던 재생, 아티스트 검색, 취향 추천 실패를 사용자 안내로 보강했다.
 - 운영 서버는 `music-curation` systemd service만 재시작한다. Caddy 설정 reload와 앱 서비스 restart 범위 외 다른 서비스 재시작은 배포 스크립트에서 수행하지 않는다.
-- 실제 YouTube/Gemini 성공 검증은 운영 환경변수 입력 전까지 불가하며, 현재는 `MISSING_API_KEY` 응답과 프론트 안내가 정상 동작해야 하는 상태다.
+- 실제 YouTube/Claude 성공 검증은 운영 환경변수 입력 전까지 불가하며, 현재는 `MISSING_API_KEY` 응답과 프론트 안내가 정상 동작해야 하는 상태다.
 
 ### Firebase Backend Auth
 

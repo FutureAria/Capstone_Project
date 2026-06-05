@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.musiccuration.backend.common.CacheService;
 import com.musiccuration.backend.common.SongResponse;
 import com.musiccuration.backend.emotion.EmotionType;
-import com.musiccuration.backend.external.gemini.GeminiApiClient;
-import com.musiccuration.backend.external.gemini.GeminiPromptFactory;
+import com.musiccuration.backend.external.claude.ClaudeApiClient;
+import com.musiccuration.backend.external.claude.ClaudePromptFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service
 public class RecommendationService {
-    private final GeminiApiClient geminiApiClient;
-    private final GeminiPromptFactory promptFactory;
+    private final ClaudeApiClient claudeApiClient;
+    private final ClaudePromptFactory promptFactory;
     private final CacheService cacheService;
 
-    public RecommendationService(GeminiApiClient geminiApiClient, GeminiPromptFactory promptFactory, CacheService cacheService) {
-        this.geminiApiClient = geminiApiClient;
+    public RecommendationService(ClaudeApiClient claudeApiClient, ClaudePromptFactory promptFactory, CacheService cacheService) {
+        this.claudeApiClient = claudeApiClient;
         this.promptFactory = promptFactory;
         this.cacheService = cacheService;
     }
@@ -28,10 +28,10 @@ public class RecommendationService {
         int limit = request.safeLimit();
         String key = "recommend:%s:%s:%d".formatted(request.text().toLowerCase().trim(), emotion, limit);
         CacheService.CachedValue<RecommendationPayload> cached = cacheService.ai(key, () -> {
-            JsonNode json = geminiApiClient.generateJson(promptFactory.recommendPrompt(request.text(), emotion, limit));
+            JsonNode json = claudeApiClient.generateJson(promptFactory.recommendPrompt(request.text(), emotion, limit));
             return new RecommendationPayload(mapEmotions(json.path("emotions")), mapSongs(json.path("songs"), limit));
         });
-        return new RecommendationResponse(cached.value().emotions(), cached.value().songs(), "gemini", cached.cached());
+        return new RecommendationResponse(cached.value().emotions(), cached.value().songs(), "claude", cached.cached());
     }
 
     private List<EmotionBreakdown> mapEmotions(JsonNode node) {

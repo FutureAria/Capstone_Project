@@ -4,7 +4,7 @@
 
 - [ ] 실제 로컬/운영 환경에 API key 설정
   - `YOUTUBE_API_KEY`
-  - `GEMINI_API_KEY`
+  - `ANTHROPIC_API_KEY`
   - 운영 위치: `/etc/music-curation/music-curation.env`
 - [x] Oracle 서버 배포
   - URL: `https://juyoung-basechain.duckdns.org/music-curation/`
@@ -55,7 +55,7 @@
 - [x] README에 배포 URL, 백엔드 구조, 보안 처리 강조
 - [x] API 명세 보강
 - [x] 발표용 핵심 포인트 문서화
-- [x] Gemini/YouTube 실패 시 사용자 안내 메시지 보강
+- [x] Claude/YouTube 실패 시 사용자 안내 메시지 보강
 - [x] Google 로그인 실패 시 Firebase 설정 확인 안내 보강
 - [ ] Firebase SDK 청크 추가 최적화 검토
   - 현재 운영 빌드 전체 dist 약 `944K`

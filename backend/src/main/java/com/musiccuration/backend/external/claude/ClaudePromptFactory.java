@@ -1,4 +1,4 @@
-package com.musiccuration.backend.external.gemini;
+package com.musiccuration.backend.external.claude;
 
 import com.musiccuration.backend.common.SongResponse;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class GeminiPromptFactory {
+public class ClaudePromptFactory {
     public String emotionPrompt(String text) {
         return """
                 아래 텍스트의 감정을 분석해줘. JSON만 반환해줘. 마크다운 쓰지 마.

@@ -1,5 +1,27 @@
 # Worklog
 
+## 2026-06-05 — Claude API Backend Migration
+
+### 완료
+
+- 백엔드 AI provider를 Google Gemini API에서 Anthropic Claude API로 교체
+- `GeminiApiClient`, `GeminiPromptFactory`, `GeminiProperties` 제거
+- `ClaudeApiClient`, `ClaudePromptFactory`, `ClaudeProperties` 추가
+- Claude Messages API 호출 형식 적용
+  - endpoint: `https://api.anthropic.com/v1/messages`
+  - headers: `x-api-key`, `anthropic-version`
+  - default model: `claude-sonnet-4-5-20250929`
+- 감정 분석, 추천, 믹스, 취향 추천, 유사곡 추천 응답 provider를 `claude`로 변경
+- 에러 코드를 `GEMINI_API_ERROR`에서 `CLAUDE_API_ERROR`로 변경
+- README, API spec, Oracle/env 관련 문서를 Claude 기준으로 갱신
+
+### 남은 항목
+
+- 운영 서버 `/etc/music-curation/music-curation.env`에 실제 `ANTHROPIC_API_KEY` 입력 필요
+- 실제 API 키 입력 후 Claude 기반 `POST /api/emotion`, `POST /api/recommend`, `POST /api/mixes` 운영 검증 필요
+- 논문/PPT의 Gemini 표기를 Claude API로 수정 필요
+
+
 ## 2026-06-03 — Firebase Configuration Check
 
 ### 완료

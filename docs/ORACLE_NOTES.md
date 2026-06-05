@@ -15,7 +15,7 @@
 | Disk impact | Done | `/opt/music-curation` about `31M`; analytics DB/log dirs are small; root disk still about `36G` available |
 | H2 analytics DB | Done | `/var/lib/music-curation` |
 | App log file | Done | `/var/log/music-curation/music-curation.log` |
-| YouTube/Gemini production keys | Remaining | `/etc/music-curation/music-curation.env` has placeholders unless manually filled |
+| YouTube/Claude production keys | Remaining | `/etc/music-curation/music-curation.env` has placeholders unless manually filled |
 | Firebase auth domain | Check needed | Add `juyoung-basechain.duckdns.org` in Firebase console if login is blocked |
 | Firebase backend auth | Implemented, default off | `FIREBASE_AUTH_ENABLED=false`; set `true` after browser login/token verification |
 

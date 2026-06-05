@@ -42,7 +42,7 @@ https://juyoung-basechain.duckdns.org/music-curation/swagger-ui/index.html
 | `MISSING_API_KEY` | 백엔드 환경변수 API 키 없음 |
 | `YOUTUBE_API_ERROR` | YouTube API 오류 |
 | `YOUTUBE_QUOTA_EXCEEDED` | YouTube quota 초과 |
-| `GEMINI_API_ERROR` | Gemini API 오류 |
+| `CLAUDE_API_ERROR` | Claude API 오류 |
 | `AI_RESPONSE_PARSE_FAILED` | AI 응답 JSON 파싱 실패 |
 | `RATE_LIMIT_EXCEEDED` | 요청 제한 초과 |
 | `UPSTREAM_TIMEOUT` | 외부 API 응답 지연 |
@@ -55,7 +55,7 @@ cd /Users/juyoung/Desktop/AI음악
 bash scripts/verify-production-api.sh
 ```
 
-현재 운영 서버에 `YOUTUBE_API_KEY`, `GEMINI_API_KEY`가 없으면 `chart`, `search`, `emotion`, `recommend`, `mixes`는 `MISSING_API_KEY`로 실패하는 것이 정상이다. 키 입력 후 다시 검증한다.
+현재 운영 서버에 `YOUTUBE_API_KEY`, `ANTHROPIC_API_KEY`가 없으면 `chart`, `search`, `emotion`, `recommend`, `mixes`는 `MISSING_API_KEY`로 실패하는 것이 정상이다. 키 입력 후 다시 검증한다.
 
 백엔드 Firebase 인증을 켠 경우 실제 Firebase ID Token을 같이 전달한다.
 
@@ -231,7 +231,7 @@ Content-Type: application/json
 {
   "emotion": "기쁨",
   "confidence": null,
-  "provider": "gemini",
+  "provider": "claude",
   "cached": false
 }
 ```
@@ -272,7 +272,7 @@ Content-Type: application/json
       "youtubeQuery": "노래 제목 아티스트"
     }
   ],
-  "provider": "gemini",
+  "provider": "claude",
   "cached": false
 }
 ```
@@ -305,7 +305,7 @@ Content-Type: application/json
       "youtubeQuery": "노래 제목 아티스트"
     }
   ],
-  "provider": "gemini",
+  "provider": "claude",
   "cached": false
 }
 ```
@@ -341,7 +341,7 @@ Content-Type: application/json
       "songs": []
     }
   ],
-  "provider": "gemini",
+  "provider": "claude",
   "cached": false
 }
 ```
@@ -373,7 +373,7 @@ Content-Type: application/json
       "youtubeQuery": "노래 제목 아티스트"
     }
   ],
-  "provider": "gemini",
+  "provider": "claude",
   "cached": false
 }
 ```

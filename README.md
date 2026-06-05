@@ -2,7 +2,7 @@
 
 > AI가 당신의 감정을 분석해 어울리는 음악을 추천하는 웹 애플리케이션
 
-감정을 자유롭게 입력하면 AI(Gemini)가 감정을 분석하고, 그에 어울리는 음악을
+감정을 자유롭게 입력하면 AI(Claude)가 감정을 분석하고, 그에 어울리는 음악을
 추천해 줍니다. YouTube 인기 차트, 뮤직비디오, 맞춤 믹스, 취향 기반 추천,
 나만의 앨범 등 다양한 음악 큐레이션 기능을 제공합니다.
 
@@ -36,7 +36,7 @@
 |---|---|
 | 프론트엔드 | React 19, Vite |
 | 인증 / DB | Firebase (Auth, Firestore) |
-| AI | Google Gemini API (감정 분석·추천·믹스) |
+| AI | Anthropic Claude API (감정 분석·추천·믹스) |
 | 음악 | YouTube Data API v3 (차트·검색·재생) |
 
 ---
@@ -67,7 +67,7 @@ cp .env.example .env
 
 # 실제 실행 시 shell 환경변수 또는 .env 로 아래 값을 설정하세요.
 # YOUTUBE_API_KEY=...
-# GEMINI_API_KEY=...
+# ANTHROPIC_API_KEY=...
 
 mvn spring-boot:run
 ```
@@ -83,7 +83,7 @@ mvn spring-boot:run
 8080 포트가 이미 사용 중이면 `SERVER_PORT=8081 mvn spring-boot:run`으로 실행하고,
 `vite.config.js`의 proxy target도 `http://localhost:8081`로 바꾸세요.
 
-> ⚠️ YouTube/Gemini API 키는 프론트 `VITE_` 환경변수에 두지 않습니다.
+> ⚠️ YouTube/Claude API 키는 프론트 `VITE_` 환경변수에 두지 않습니다.
 > 외부 API 키는 백엔드 환경변수로만 관리하세요.
 
 API 명세는 [`docs/API_SPEC.md`](docs/API_SPEC.md)를 참고하세요.

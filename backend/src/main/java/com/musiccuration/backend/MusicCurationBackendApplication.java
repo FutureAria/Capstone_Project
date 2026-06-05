@@ -1,6 +1,6 @@
 package com.musiccuration.backend;
 
-import com.musiccuration.backend.config.GeminiProperties;
+import com.musiccuration.backend.config.ClaudeProperties;
 import com.musiccuration.backend.config.FirebaseAuthProperties;
 import com.musiccuration.backend.config.MusicProperties;
 import com.musiccuration.backend.config.RateLimitProperties;
@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
         MusicProperties.class,
         FirebaseAuthProperties.class,
         YouTubeProperties.class,
-        GeminiProperties.class,
+        ClaudeProperties.class,
         RateLimitProperties.class
 })
 public class MusicCurationBackendApplication {

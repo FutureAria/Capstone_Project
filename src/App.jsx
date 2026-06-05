@@ -357,7 +357,7 @@ export default function App() {
     })
   }
 
-  // ── 비슷한 곡 연속재생 (큐가 끝나면 Gemini 자동 추천) ────────
+  // ── 비슷한 곡 연속재생 (큐가 끝나면 Claude 자동 추천) ────────
   const handleQueueEnd = async (song) => {
     try {
       const recommended = await api.similarSong(song)

@@ -20,7 +20,7 @@ check_value() {
 
 printf 'env_file                     %s\n' "$ENV_FILE"
 check_value "YOUTUBE_API_KEY"
-check_value "GEMINI_API_KEY"
+check_value "ANTHROPIC_API_KEY"
 check_value "FIREBASE_AUTH_ENABLED"
 check_value "FIREBASE_PROJECT_ID"
 systemctl is-active music-curation | awk '{ printf "%-28s %s\n", "music-curation.service", $1 }'

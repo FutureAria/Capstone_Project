@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { getTheme, getDarkTheme, glass, glassDark, GLOBAL_CSS } from '../styles/theme'
 import { api, apiErrorMessage } from '../lib/api'
 
-// ── Gemini로 테마별 믹스 생성 ────────────────────────────────
+// ── Claude로 테마별 믹스 생성 ────────────────────────────────
 // 좋아요/앨범/히스토리(감정)를 종합해 믹스 4개를 자동 구성한다.
 async function generateMixes({ likedSongs, albums, historyList }) {
   const data = await api.mixes({ likedSongs, albums, historyList })
